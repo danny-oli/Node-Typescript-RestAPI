@@ -84,8 +84,7 @@ Routes info!
 /user/find-all/              |       GET         | Find All              | 
 /user/update/:id             |       PUT         | Update User           |    
 /user/delete/:id             |       DELETE      | Delete User           |
-/mailgun/sendMail            |       POST        | Criar Substancia      |
-/mailgun/getSentMails        |       GET         | Selecionar Todas      |
+/hotel/find/:cityCode        |       GET         | Find Hotels by CityCode|      |
 
 <br>
 
