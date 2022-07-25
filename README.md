@@ -85,6 +85,7 @@ Routes info!
 /user/update/:id             |       PUT         | Update User           |    
 /user/delete/:id             |       DELETE      | Delete User           |
 /hotel/find/:cityCode        |       GET         | Find Hotels by CityCode|      |
+/hotel/search-history/       |       GET         | Get Hotel Search History|
 
 <br>
 

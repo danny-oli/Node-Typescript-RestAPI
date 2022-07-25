@@ -1,12 +1,12 @@
 import { IAmadeusHotelProvider } from "../../../providers/IAmadeusHotelProvider";
-import { IHotelSearchRepository } from "../../../repositories/IHotelSearchRepository";
+import { IHotelRepository } from "../../../repositories/IHotelRepository";
 import { IFindHotelRequestDTO } from "../interfaces/IFindHotelDTO";
 import { IHotels } from "../interfaces/IHotels";
 
 export class FindHotelUseCase {
   constructor(
     private amadeusProvider: IAmadeusHotelProvider,
-    private hotelSearchRepository: IHotelSearchRepository
+    private hotelSearchRepository: IHotelRepository
   ) { }
 
   async findHotel(data: IFindHotelRequestDTO): Promise<IHotels[] | any> {

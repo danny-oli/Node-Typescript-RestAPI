@@ -169,7 +169,7 @@
                   "username": "tui-support",
                   "email": "tui.support@tui.com",
                   "password": "Password123",
-                  "key":"Use the integrakey key you receiving while creating your user."
+                  "key": "Use the integrakey key you receiving while creating your user."
                 }
               }
             }
@@ -230,6 +230,21 @@
         "responses": {
           "200": {
             "description": "hotels[{}]"
+          },
+          "400": {
+            "description": "Bad Request!"
+          }
+        }
+      }
+    },
+
+    "/hotel/search-history": {
+      "get": {
+        "description": "Use this endpoint to find all previous searches.",
+        "tags": ["Hotel"],
+        "responses": {
+          "200": {
+            "description": "searchs[{}]"
           },
           "400": {
             "description": "Bad Request!"

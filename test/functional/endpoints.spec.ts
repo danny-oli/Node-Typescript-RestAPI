@@ -104,7 +104,6 @@ describe("This test updates a User by it's _id", () => {
             password: "NewPass123",
             key: user.key
         }
-        console.log({ user })
         const response = await supertest(await server.getApp()).put(`/user/update/${test_id}`).send(userMock);
         expect(response.status).toBe(200);
         expect(response.body).toHaveProperty('_id');
@@ -175,6 +174,14 @@ describe("API Get Hotel Test", () => {
         const { body, status } = await supertest(await server.getApp()).get(`/hotel/find/${cityCode}`).send();
         expect(status).toBe(200);
         expect(body).toHaveProperty('hotels');
+    });
+});
+
+describe("Get previous searches", () => {
+    test("It should return an array of searched hotels objects.", async () => {
+        const { body, status } = await supertest(await server.getApp()).get(`/hotel/search-history`).send();
+        expect(status).toBe(200);
+        expect(body).toHaveProperty('body');
     });
 });
 

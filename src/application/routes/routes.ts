@@ -31,4 +31,8 @@ router.get('/hotel/find/:cityCode', (request: Request, response: Response) => {
   return hotelController.findHotel(request, response);
 });
 
+router.get('/hotel/search-history', (request: Request, response: Response) => {
+  return hotelController.getSearchHistory(request, response);
+});
+
 export { router }

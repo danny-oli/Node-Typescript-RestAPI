@@ -5,5 +5,4 @@ export interface ICityCode {
 }
 export interface IAmadeusHotelProvider {
   findHotel(cityCode: ICityCode): Promise<IHotels[]>;
-  // saveSearch(hotelSearch: IHotels[]): Promise<any>
 }
