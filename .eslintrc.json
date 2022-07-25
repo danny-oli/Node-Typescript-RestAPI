@@ -1,0 +1,74 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:import/recommended",
+    "plugin:import/warnings",
+    "plugin:import/errors",
+    "plugin:@typescript-eslint/recommended",
+    "eslint-config-airbnb-base/whitespace"
+  ],
+    
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "project": "tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint"],
+  "ignorePatterns": ".eslintrc.json",
+  "rules": {
+    "func-names": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "nestjs/use-validation-pipe": "off",
+    "no-trailing-spaces": "warn",
+    "no-multi-spaces": "warn",
+    "no-multiple-empty-lines": ["warn", { "max": 1 }],
+    "import/prefer-default-export": "off",
+    "no-useless-constructor": "off",
+    "semi": "warn",
+    "object-curly-spacing": ["warn", "always"],
+    "comma-dangle": ["error", "never"],
+    "max-len": ["warn", { "code": 130 }],
+    "object-property-newline": "error",
+    "key-spacing": ["error", { "beforeColon": false }],
+    "brace-style": "warn",
+    "keyword-spacing": ["error", { "before": true }],
+    "no-whitespace-before-property": "error",
+    "space-in-parens": ["error", "always"],
+    "import/extensions": "off",
+    "no-empty-function": "off",
+    "no-unused-vars": "off",
+    "new-cap": "off",
+    "linebreak-style": "off",
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-cycle": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-this-alias": "off",
+    "no-case-declarations": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "max-classes-per-file": "off",
+    "@typescript-eslint/type-annotation-spacing": 1,
+    "experimentalDecorators": 0,
+    "no-shadow": "off"
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./src"
+      }
+    }
+  }
+}

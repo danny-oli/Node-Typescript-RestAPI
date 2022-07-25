@@ -1,0 +1,241 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Tui-Backend-Test",
+    "description": "Documentation for the Tui Backend Test",
+    "version": "1.0.0"
+  },
+  "contact": {
+    "name": "Danny Oliveira",
+    "url": "https://github.com/danny-oli"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333",
+      "description": "Development server"
+    }
+  ],
+
+  "paths": {
+    "/user/create": {
+      "post": {
+        "description": "Route for creating a new user and receive your integrationKey",
+        "tags": ["User"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": true
+                  }
+                },
+                "example": {
+                  "username": "tui-support",
+                  "email": "tui.support@tui.com",
+                  "password": "Password123"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created!"
+          },
+          "400": {
+            "description": "Bad Request!"
+          }
+        }
+      }
+    },
+
+    "/user/find-by-email/{email}": {
+      "get": {
+        "description": "Retrieve a user by email",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Found!"
+          },
+          "400": {
+            "description": "User Not Found!"
+          },
+          "404": {
+            "description": "User Not Found!"
+          }
+        }
+      }
+    },
+
+    "/user/find-by-id/{_id}": {
+      "get": {
+        "description": "Retrieve a user by Mongo _id",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "_id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Found!"
+          },
+          "400": {
+            "description": "User Not Found!"
+          },
+          "404": {
+            "description": "User Not Found!"
+          }
+        }
+      }
+    },
+
+    "/user/find-all": {
+      "get": {
+        "description": "Retrieve all users",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Found users Array!"
+          },
+          "400": {
+            "description": "User Not Found!"
+          },
+          "404": {
+            "description": "Users Not Found!"
+          }
+        }
+      }
+    },
+
+    "/user/update/{_id}": {
+      "put": {
+        "description": "Update user's data.",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "_id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "key": {
+                    "type": "string",
+                    "required": true
+                  }
+                },
+                "example": {
+                  "username": "tui-support",
+                  "email": "tui.support@tui.com",
+                  "password": "Password123",
+                  "key":"Use the integrakey key you receiving while creating your user."
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User Found!"
+          },
+          "400": {
+            "description": "Bad Request!"
+          },
+          "404": {
+            "description": "User Not Found!"
+          }
+        }
+      }
+    },
+
+    "/user/delete/{_id}": {
+      "delete": {
+        "description": "Delete user",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "_id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User deleted!"
+          },
+          "400": {
+            "description": "Bad Request!"
+          },
+          "404": {
+            "description": "User Not Found!"
+          }
+        }
+      }
+    },
+
+    "/hotel/find/{cityCode}": {
+      "get": {
+        "description": "Use this endpoint to find the Hotels throught Amadeus API using a City Code.",
+        "tags": ["Hotel"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cityCode",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "hotels[{}]"
+          },
+          "400": {
+            "description": "Bad Request!"
+          }
+        }
+      }
+    }
+  }
+}
