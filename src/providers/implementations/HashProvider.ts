@@ -12,9 +12,17 @@ export class HashProvider implements IBcryptHashProvider {
             throw error;
         }
     }
-    hashPassword(plainText: string, salt: number): string {
+    async hashPassword(plainText: string, salt: string): Promise<string> {
         try {
             return this.hashAgent.hashSync(plainText, salt);
+        } catch (error) {
+            console.log({ error })
+            throw error;
+        }
+    }
+    genSalt(): string {
+        try {
+            return this.hashAgent.genSalt();;
         } catch (error) {
             console.log({ error })
             throw error;

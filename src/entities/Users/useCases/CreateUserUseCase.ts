@@ -14,14 +14,14 @@ export class CreateUserUseCase {
   async execute(data: ICreateUserRequestDTO) {
 
     const userAlreadyExists = await this.usersRepository.findByEmail(data.email);
-    const BCRYPT_SALT = 10;
+    const BCRYPT_SALT = await this.hashProvider.genSalt();;
     if (userAlreadyExists) {
       throw new Error('User already exists.');
     }
     const user = new User(data);
 
     // Integration-key
-    const hash: string = this.hashProvider.hashPassword(user.password, BCRYPT_SALT);
+    const hash: string = await this.hashProvider.hashPassword(user.password, BCRYPT_SALT);
     user.password = hash;
     const uuidKey: string = this.uuidProvider.generateUuid(user.password);
     user.key = uuidKey;
