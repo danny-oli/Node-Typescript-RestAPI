@@ -13,6 +13,10 @@
     {
       "url": "http://localhost:3333",
       "description": "Development server"
+    },
+    {
+      "url": "https://tui-backend.herokuapp.com",
+      "description": "Production Server"
     }
   ],
 
