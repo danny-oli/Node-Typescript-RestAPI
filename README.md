@@ -1,5 +1,5 @@
 
-### Access all the routes by clicking the button below, or at localhost:3333/docs (swagger)!
+### Access all the routes by clicking the button below, or at [https://tui-backend.herokuapp.com/docs]!
 <a href="https://insomnia.rest/run/?label=NODE-TYPESCRIPT-RESTAPI&uri=https%3A%2F%2Fgithub.com%2Fdanny-oli%2FNode-Typescript-RestAPI%2Fblob%2Fmain%2FInsomnia%2FInsomnia_2022-07-25.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
 
 
@@ -20,6 +20,7 @@ There is also a User's CRUD.
 ### API Setup
 
 - Restful API using json;
+- Heroku
 - Node.Js;
 - Express.Js;
 - MongoDb;
@@ -47,8 +48,8 @@ There is also a User's CRUD.
 
 ### Documentation
 
-- [Swagger](https://swagger.io/) documentation for easy testing.
-
+- [Swagger](https://swagger.io/) Documentation for easy testing.
+- [Heroku](https://www.heroku.com/) Deploy server.
 <br>
 
 
@@ -75,6 +76,8 @@ yarn dev
 ## :rocket: Insomnia testing!
 
 Routes info!
+Deploy url: [https://tui-backend.herokuapp.com]
+
 
   ROUTES                     |     HTTP          |      DESCRIPTION      | 
 ---------------------------  | ----------------- | --------------------- | 
