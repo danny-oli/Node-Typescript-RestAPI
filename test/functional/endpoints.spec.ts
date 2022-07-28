@@ -72,7 +72,7 @@ describe("This test finds a User by it's _id", () => {
         expect(body).toHaveProperty('_id');
     });
 
-    it("should fail because the email doesn't exists", async () => {
+    it("should fail because the _id doesn't exists", async () => {
         const _idFake = "62de35db4d8e2143907b557a";
         const { body, status } = await supertest(await server.getApp()).get(`/user/find-by-id/${_idFake}`).send();
 
@@ -127,7 +127,7 @@ describe("This test updates a User by it's _id", () => {
         });
     });
 
-    it("should fail because the email is already taken for a differente _id.", async () => {
+    it("should fail because the email doest not exist on database.", async () => {
         const _idFake = "62de35db4d8e2143907b557a";
         const userMock = {
             _id: _idFake,
@@ -178,7 +178,7 @@ describe("API Get Hotel Test", () => {
 });
 
 describe("Get previous searches", () => {
-    test("It should return an array of searched hotels objects.", async () => {
+    test("It should return an array of the previous searches.", async () => {
         const { body, status } = await supertest(await server.getApp()).get(`/hotel/search-history`).send();
         expect(status).toBe(200);
         expect(body).toHaveProperty('body');
