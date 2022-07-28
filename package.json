@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules src/application/app.ts",
+    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/application/app.ts",
     "test": "jest --verbose"
   },
   "dependencies": {
