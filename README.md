@@ -1,5 +1,5 @@
 
-### Access all the routes by clicking the button below, or at localhost:3333/docs (swagger)!
+### Access all the routes by clicking the button below, or at [https://tui-backend.herokuapp.com]!
 <a href="https://insomnia.rest/run/?label=NODE-TYPESCRIPT-RESTAPI&uri=https%3A%2F%2Fgithub.com%2Fdanny-oli%2FNode-Typescript-RestAPI%2Fblob%2Fmain%2FInsomnia%2FInsomnia_2022-07-25.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
 
 
@@ -75,6 +75,8 @@ yarn dev
 ## :rocket: Insomnia testing!
 
 Routes info!
+Deploy url: [https://tui-backend.herokuapp.com]
+
 
   ROUTES                     |     HTTP          |      DESCRIPTION      | 
 ---------------------------  | ----------------- | --------------------- | 
