@@ -5,6 +5,7 @@ import { FindByEmailUserUseCase } from "./useCases/FindByEmailUserUseCase";
 import { FindAllUserUseCase } from "./useCases/FindAllUserUseCase";
 import { FindByIdUserUseCase } from "./useCases/FindByIdUserUseCase";
 import { UpdateUserUseCase } from "./useCases/UpdateUserUseCase";
+import { UserLoginUseCase } from "./useCases/UserLoginUseCase";
 
 export class UserController {
   constructor(
@@ -14,7 +15,24 @@ export class UserController {
     private findAllUserUseCase: FindAllUserUseCase,
     private updateUserUseCase: UpdateUserUseCase,
     private deleteUserUseCase: DeleteUserUseCase,
+    private userLoginUseCase: UserLoginUseCase,
   ) { }
+
+  async login(request: Request, response: Response): Promise<Response> {
+    const { email, password } = request.body;
+    try {
+      const token = await this.userLoginUseCase.execute({
+        email,
+        password
+      })
+      response.set("Authorization", token); // Set headers with Jwt
+      return response.status(200).send("Login succeeded");
+    } catch (err: any) {
+      return response.status(400).json({
+        message: err.message || 'Unexpected error.'
+      })
+    }
+  }
 
   async create(request: Request, response: Response): Promise<Response> {
     const { username, email, password } = request.body;

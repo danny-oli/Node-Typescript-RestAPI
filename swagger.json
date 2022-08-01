@@ -20,10 +20,20 @@
     }
   ],
 
+  "components": {
+    "securitySchemes": {
+      "x-access-token": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-access-token"
+      }
+    }
+  },
+
   "paths": {
     "/user/create": {
       "post": {
-        "description": "Route for creating a new user and receive your integrationKey",
+        "description": "Route for creating a new user and receive your JWT",
         "tags": ["User"],
         "requestBody": {
           "content": {
@@ -68,6 +78,7 @@
       "get": {
         "description": "Retrieve a user by email",
         "tags": ["User"],
+        "security": [{ "x-access-token": [] }],
         "parameters": [
           {
             "in": "path",
@@ -94,6 +105,7 @@
       "get": {
         "description": "Retrieve a user by Mongo _id",
         "tags": ["User"],
+        "security": [{ "x-access-token": [] }],
         "parameters": [
           {
             "in": "path",
@@ -120,6 +132,7 @@
       "get": {
         "description": "Retrieve all users",
         "tags": ["User"],
+        "security": [{ "x-access-token": [] }],
         "responses": {
           "200": {
             "description": "Found users Array!"
@@ -138,6 +151,7 @@
       "put": {
         "description": "Update user's data.",
         "tags": ["User"],
+        "security": [{ "x-access-token": [] }],
         "parameters": [
           {
             "in": "path",
@@ -197,6 +211,7 @@
       "delete": {
         "description": "Delete user",
         "tags": ["User"],
+        "security": [{ "x-access-token": [] }],
         "parameters": [
           {
             "in": "path",
@@ -223,6 +238,7 @@
       "get": {
         "description": "Use this endpoint to find the Hotels throught Amadeus API using a City Code.",
         "tags": ["Hotel"],
+        "security": [{ "x-access-token": [] }],
         "parameters": [
           {
             "in": "path",
@@ -246,6 +262,7 @@
       "get": {
         "description": "Use this endpoint to find all previous searches.",
         "tags": ["Hotel"],
+        "security": [{ "x-access-token": [] }],
         "responses": {
           "200": {
             "description": "searchs[{}]"

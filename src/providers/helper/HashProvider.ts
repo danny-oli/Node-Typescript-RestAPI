@@ -1,5 +1,5 @@
 import IBcryptHashProvider from "../IBcryptHashProvider";
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
 export class HashProvider implements IBcryptHashProvider {
     private hashAgent: any;
@@ -12,13 +12,20 @@ export class HashProvider implements IBcryptHashProvider {
             throw error;
         }
     }
-    async hashPassword(plainText: string, salt: string): Promise<string> {
+    async hashPassword(plainText: string): Promise<string> {
         try {
-            return this.hashAgent.hashSync(plainText, salt);
+            const BCRYPT_SALT = await this.genSalt();
+            return await this.hashAgent.hashSync(plainText, BCRYPT_SALT);
         } catch (error) {
             console.log({ error })
             throw error;
         }
+    }
+
+    async compare(storedPassword: string, password: string): Promise<string> {
+        const compare = await this.hashAgent.compareSync(password, storedPassword);
+        console.log({ compare })
+        return compare;
     }
     genSalt(): string {
         try {

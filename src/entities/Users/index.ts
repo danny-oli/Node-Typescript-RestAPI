@@ -5,13 +5,17 @@ import { FindByEmailUserUseCase } from "./useCases/FindByEmailUserUseCase";
 import { FindAllUserUseCase } from "./useCases/FindAllUserUseCase";
 import { FindByIdUserUseCase } from "./useCases/FindByIdUserUseCase";
 import { UpdateUserUseCase } from "./useCases/UpdateUserUseCase";
+import { UserLoginUseCase } from "./useCases/UserLoginUseCase";
 import { UserController } from "./UserController";
-import { HashProvider } from "../../providers/implementations/HashProvider";
-import { UuidProvider } from "../../providers/implementations/UuidProvider";
+import { HashProvider } from "../../providers/helper/HashProvider";
+import { UuidProvider } from "../../providers/helper/UuidProvider";
+import TokenProvider from "../../providers/helper/TokenProvider";
 
 const usersRepository = new UserRepository();
 const hashProvider = new HashProvider();
 const uuidProvider = new UuidProvider();
+const tokenProvider = new TokenProvider();
+
 const createUserUseCase = new CreateUserUseCase(
   usersRepository,
   hashProvider,
@@ -35,13 +39,20 @@ const deleteUserUseCase = new DeleteUserUseCase(
   usersRepository,
 )
 
+const userLoginUseCase = new UserLoginUseCase(
+  usersRepository,
+  hashProvider,
+  tokenProvider
+)
+
 const createUserController = new UserController(
   createUserUseCase,
   findByEmailUserUseCase,
   findByIdUserUseCase,
   findAllUserUseCase,
   updateUserUseCase,
-  deleteUserUseCase
+  deleteUserUseCase,
+  userLoginUseCase
 )
 
 export { createUserUseCase, createUserController, findByEmailUserUseCase }

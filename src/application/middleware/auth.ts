@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { IUser } from "../../entities/Users/interfaces/IUser";
-import UserRepository from "../../repositories/implementations/UsersRepository";
+import jwt, { Secret } from "jsonwebtoken";
+
 
 export const Auth = async (
   request: Request,
@@ -8,13 +8,16 @@ export const Auth = async (
   next: NextFunction,
 ) => {
   try {
-    const { email, key } = request.body;
-    const userRepository = new UserRepository();
-    const user: IUser = await userRepository.findByEmail(email);
-    if (user && user.key != key) throw new Error('Email already taken');
+    const headerToken: string | undefined = request.headers['x-access-token']?.toString();
 
-    next();
+    if (!headerToken) throw 'No token provided.';
 
+    const secret: Secret | undefined = process.env.JWT_SECRET;
+    if (!secret) throw 'Jwt Secret not found!';
+    jwt.verify(headerToken, secret, (err: any, data: any) => {
+      if (err) return response.sendStatus(401);
+      next();
+    });
   } catch (error) {
     response.status(400).json({ error })
   }
