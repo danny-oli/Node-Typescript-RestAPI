@@ -17,7 +17,7 @@ export class UpdateUserUseCase {
     foundUser = await this.usersRepository.findById(data._id);
     if (!foundUser) throw new Error(`User not found to update.`);
 
-    data.password = await this.hashProvider.hashPassword(data.password, SALT)
+    data.password = await this.hashProvider.hashPassword(data.password);
     return await this.usersRepository.update(data);
   }
 }

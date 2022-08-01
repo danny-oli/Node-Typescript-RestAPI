@@ -17,6 +17,7 @@ export const Auth = async (
     jwt.verify(headerToken, secret, (err: any, data: any) => {
       if (err) return response.sendStatus(401);
       next();
+      return;
     });
   } catch (error) {
     response.status(400).json({ error })
