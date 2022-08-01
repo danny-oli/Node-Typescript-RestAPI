@@ -1,7 +1,7 @@
-import jwt, { Secret, SignOptions } from "jsonwebtoken";
-import IToken from "../ITokenProvider";
+import jwt, { Secret } from "jsonwebtoken";
+import ITokenProvider from "../ITokenProvider";
 
-export default class TokenProvider implements IToken {
+export default class TokenProvider implements ITokenProvider {
   public async createToken(id: string, email: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const secret: Secret | undefined = process.env.JWT_SECRET;
