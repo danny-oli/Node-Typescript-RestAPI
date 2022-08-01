@@ -9,7 +9,6 @@ export class UpdateUserUseCase {
   ) { }
 
   async execute(data: IUpdateUserRequestDTO) {
-    const SALT = await this.hashProvider.genSalt();
     let foundUser = await this.usersRepository.findByEmail(data.email);
     const emailTakenByOtherUser = foundUser && foundUser._id != data._id;
     if (emailTakenByOtherUser) throw new Error('Another user is already using this e-mail.');
