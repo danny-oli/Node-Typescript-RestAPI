@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules src/application/app.ts",
-    "start": "ts-node -r tsconfig-paths/register src/application/app.ts",
+    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/application/app.ts",
     "test": "jest --verbose"
   },
   "dependencies": {
@@ -22,8 +22,7 @@
     "supertest": "^6.1.6",
     "swagger-jsdoc": "5.0.1",
     "swagger-ui-express": "^4.3.0",
-    "uuid": "^8.3.2",
-    "ts-node-dev": "^2.0.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
