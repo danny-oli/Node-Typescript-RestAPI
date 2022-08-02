@@ -1,5 +1,5 @@
 import jwt, { Secret } from "jsonwebtoken";
-import ITokenProvider from "../TokenProvider";
+import ITokenProvider from "../ITokenProvider";
 
 export default class TokenProvider implements ITokenProvider {
   public async createToken(id: string, email: string): Promise<any> {

@@ -1,5 +1,5 @@
 import IBcryptHashProvider from "../../../providers/IBcryptHashProvider";
-import ITokenProvider from "../../../providers/TokenProvider";
+import ITokenProvider from "../../../providers/ITokenProvider";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
 import { IUserLoginRequestDTO } from "../interfaces/IUserLoginRequestDTO";
 
