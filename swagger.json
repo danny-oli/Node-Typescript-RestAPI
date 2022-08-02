@@ -33,7 +33,7 @@
   "paths": {
     "/user/create": {
       "post": {
-        "description": "Route for creating a new user and receive your JWT",
+        "description": "Route for creating a new User on database",
         "tags": ["User"],
         "requestBody": {
           "content": {
@@ -66,6 +66,44 @@
         "responses": {
           "201": {
             "description": "Created!"
+          },
+          "400": {
+            "description": "Bad Request!"
+          }
+        }
+      }
+    },
+    
+    "/user/login": {
+      "post": {
+        "description": "Route for generate your JWT",
+        "tags": ["User"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": true
+                  }
+                },
+                "example": {
+                  "email": "tui.support@tui.com",
+                  "password": "Password123"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Logged in!"
           },
           "400": {
             "description": "Bad Request!"
