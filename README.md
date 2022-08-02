@@ -31,6 +31,7 @@ There is also a User's CRUD.
 - Insomnia;
 - Dotenv;
 - Uuid;
+- Jwt;
 
 ### Functional Requirements
 - Locked Routes using user integrationKey (received when creating a new User);
