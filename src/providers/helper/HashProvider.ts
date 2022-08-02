@@ -24,7 +24,6 @@ export class HashProvider implements IBcryptHashProvider {
 
     async compare(storedPassword: string, password: string): Promise<string> {
         const compare = await this.hashAgent.compareSync(password, storedPassword);
-        console.log({ compare })
         return compare;
     }
     genSalt(): string {

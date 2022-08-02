@@ -21,6 +21,11 @@ describe("This test creates a new User and then try to create the same User twic
         });
 
         expect(response.status).toBe(201);
+        user = {
+            _id: response.body._id,
+            email: response.body.email,
+            password: "Password123",
+        }
         expect(response.body).toHaveProperty('_id');
     });
 
@@ -39,13 +44,39 @@ describe("This test creates a new User and then try to create the same User twic
 
 });
 
+// Login to generate a new JWT Token
+describe("Login to generate JWT", () => {
+    it("should return a valid JWT", async () => {
+        const response = await supertest(await server.getApp()).post("/user/login").send({
+            email: user.email,
+            password: user.password,
+        });
+
+        expect(response.status).toBe(200);
+        // user.jwt = response.headers['Authorization'];
+        user.jwt = response.headers['authorization'];
+    });
+
+    it("should fail because the user password is wrong", async () => {
+        const { body, status } = await supertest(await server.getApp()).post("/user/login").send({
+            email: user.email,
+            password: "wrong password",
+        });
+
+        expect(status).toBe(400);
+        expect(body).toEqual({
+            message: "Email or Password incorrect!"
+        });
+    });
+
+});
+
 
 // Find by Email Test
 describe("This test finds a User by it's email", () => {
     it("should return a User", async () => {
         const email = "tui.test@tui.com";
-        const response = await supertest(await server.getApp()).get(`/user/find-by-email/${email}`).send();
-        user = response.body;
+        const response = await supertest(await server.getApp()).get(`/user/find-by-email/${email}`).send().set({ 'x-access-token': user.jwt });
 
         expect(response.status).toBe(200);
         expect(response.body).toHaveProperty('_id');
@@ -53,7 +84,7 @@ describe("This test finds a User by it's email", () => {
 
     it("should fail because the email doesn't exists", async () => {
         const email = "invalid@mail.com";
-        const { body, status } = await supertest(await server.getApp()).get(`/user/find-by-email/${email}`).send();
+        const { body, status } = await supertest(await server.getApp()).get(`/user/find-by-email/${email}`).send().set({ 'x-access-token': user.jwt });
 
         expect(status).toBe(404);
         expect(body).toEqual({
@@ -67,14 +98,14 @@ describe("This test finds a User by it's email", () => {
 describe("This test finds a User by it's _id", () => {
     it("should return a User", async () => {
         const _id = user._id;
-        const { body, status } = await supertest(await server.getApp()).get(`/user/find-by-id/${_id}`).send();
+        const { body, status } = await supertest(await server.getApp()).get(`/user/find-by-id/${_id}`).send().set({ 'x-access-token': user.jwt });
         expect(status).toBe(200);
         expect(body).toHaveProperty('_id');
     });
 
     it("should fail because the _id doesn't exists", async () => {
         const _idFake = "62de35db4d8e2143907b557a";
-        const { body, status } = await supertest(await server.getApp()).get(`/user/find-by-id/${_idFake}`).send();
+        const { body, status } = await supertest(await server.getApp()).get(`/user/find-by-id/${_idFake}`).send().set({ 'x-access-token': user.jwt });
 
         expect(status).toBe(404);
         expect(body).toEqual({
@@ -88,7 +119,7 @@ describe("This test finds a User by it's _id", () => {
 describe("This test finds all stored Users", () => {
     it("should return a Users array", async () => {
 
-        const { body, status } = await supertest(await server.getApp()).get(`/user/find-all`).send();
+        const { body, status } = await supertest(await server.getApp()).get(`/user/find-all`).send().set({ 'x-access-token': user.jwt });
         expect(status).toBe(200);
         expect.arrayContaining(body);
     });
@@ -104,7 +135,7 @@ describe("This test updates a User by it's _id", () => {
             password: "NewPass123",
             key: user.key
         }
-        const response = await supertest(await server.getApp()).put(`/user/update/${test_id}`).send(userMock);
+        const response = await supertest(await server.getApp()).put(`/user/update/${test_id}`).send(userMock).set({ 'x-access-token': user.jwt });
         expect(response.status).toBe(200);
         expect(response.body).toHaveProperty('_id');
         expect(response.body.email).toBe(userMock.email);
@@ -119,7 +150,7 @@ describe("This test updates a User by it's _id", () => {
             password: "NewPass123",
             key: user.key
         }
-        const { body, status } = await supertest(await server.getApp()).put(`/user/update/${_idFake}`).send(userMock);
+        const { body, status } = await supertest(await server.getApp()).put(`/user/update/${_idFake}`).send(userMock).set({ 'x-access-token': user.jwt });
 
         expect(status).toBe(404);
         expect(body).toEqual({
@@ -136,7 +167,7 @@ describe("This test updates a User by it's _id", () => {
             password: "NewPass123",
             key: user.key
         }
-        const { body, status } = await supertest(await server.getApp()).put(`/user/update/${_idFake}`).send(userMock);
+        const { body, status } = await supertest(await server.getApp()).put(`/user/update/${_idFake}`).send(userMock).set({ 'x-access-token': user.jwt });
 
         expect(status).toBe(404);
         expect(body).toEqual({
@@ -150,13 +181,13 @@ describe("This test updates a User by it's _id", () => {
 describe("This test deletes a User by it's _id", () => {
     it("should Delete a User", async () => {
         const _id = user._id;
-        const { status } = await supertest(await server.getApp()).delete(`/user/delete/${_id}`).send(_id);
+        const { status } = await supertest(await server.getApp()).delete(`/user/delete/${_id}`).send().set({ 'x-access-token': user.jwt });
         expect(status).toBe(204);
     });
 
     it("should fail because the User doesn't exists anymore", async () => {
         const _id = user._id;
-        const { body, status } = await supertest(await server.getApp()).delete(`/user/delete/${_id}`).send();
+        const { body, status } = await supertest(await server.getApp()).delete(`/user/delete/${_id}`).send().set({ 'x-access-token': user.jwt });
 
         expect(status).toBe(404);
         expect(body).toEqual({
@@ -166,23 +197,23 @@ describe("This test deletes a User by it's _id", () => {
 
 });
 
-//[ HOTELS ]
-// Find Hotels Test
-describe("API Get Hotel Test", () => {
-    test("It should return an array of hotel objects.", async () => {
-        const cityCode = "LON";
-        const { body, status } = await supertest(await server.getApp()).get(`/hotel/find/${cityCode}`).send();
-        expect(status).toBe(200);
-        expect(body).toHaveProperty('hotels');
-    });
-});
+// //[ HOTELS ]
+// // Find Hotels Test
+// describe("API Get Hotel Test", () => {
+//     test("It should return an array of hotel objects.", async () => {
+//         const cityCode = "LON";
+//         const { body, status } = await supertest(await server.getApp()).get(`/hotel/find/${cityCode}`).send().set({ 'x-access-token': user.jwt });
+//         expect(status).toBe(200);
+//         expect(body).toHaveProperty('hotels');
+//     });
+// });
 
-describe("Get previous searches", () => {
-    test("It should return an array of the previous searches.", async () => {
-        const { body, status } = await supertest(await server.getApp()).get(`/hotel/search-history`).send();
-        expect(status).toBe(200);
-        expect(body).toHaveProperty('body');
-    });
-});
+// describe("Get previous searches", () => {
+//     test("It should return an array of the previous searches.", async () => {
+//         const { body, status } = await supertest(await server.getApp()).get(`/hotel/search-history`).send().set({ 'x-access-token': user.jwt });
+//         expect(status).toBe(200);
+//         expect(body).toHaveProperty('body');
+//     });
+// });
 
 afterAll(async () => await server.close());

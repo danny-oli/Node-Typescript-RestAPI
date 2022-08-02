@@ -15,7 +15,6 @@ export class UserLoginUseCase {
         if (!user) throw new Error(`User not found!`);
 
         const passwordIsCorrect = await this.hashProvider.compare(user.password, data.password);
-        console.log({ passwordIsCorrect })
         if (!passwordIsCorrect) throw new Error(`Email or Password incorrect!`);
 
         return await this.tokenProvider.createToken(user._id, user.email);
