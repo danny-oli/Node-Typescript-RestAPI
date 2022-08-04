@@ -83,6 +83,7 @@ Deploy url: [https://tui-backend.herokuapp.com]
   ROUTES                     |     HTTP          |      DESCRIPTION      | 
 ---------------------------  | ----------------- | --------------------- | 
 /user/create                 |       POST        | Create User           | 
+/user/login                  |       POST        | Login to get Token    | 
 /user/find-by-email/:email   |       GET         | Find by Email         | 
 /user/find-by-id/:id         |       GET         | Find by Identity      | 
 /user/find-all/              |       GET         | Find All              | 
